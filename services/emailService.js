@@ -9,7 +9,7 @@ const mappingSourceEmail= {
 
 
 // POST endpoint to handle form submissions
-router.post('/email/send-email', (req, res) => {
+router.post('/send-email', (req, res) => {
     const { source, firstname, lastname, email, companyName, phoneNumber, message } = req.body;
 
     // Create a transporter object using Gmail SMTP transport

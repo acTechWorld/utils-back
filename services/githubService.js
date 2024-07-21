@@ -26,7 +26,7 @@ function generateJwtToken() {
 
 
 // Generate a new token
-router.get('/github/generate-token', async (req, res) => {
+router.get('/generate-token', async (req, res) => {
     try {
       const jwtToken = generateJwtToken();
       const response = await axios.post(`https://api.github.com/app/installations/${installationId}/access_tokens`, {}, {
