@@ -9,7 +9,7 @@ router.get('/test-db', async (req, res) => {
       res.json(rows);
     } catch (error) {
       console.error('Database connection error:', error);
-      res.status(500).send('Database error');
+      res.status(500).send('Database connection error: ' + error);
     }
   });
 
