@@ -16,23 +16,23 @@ const getLicencingKeys = async () => {
 };
 
 // Read a single licencing key entry by ID
-const getLicencingKeyById = async (id) => {
-    const query = 'SELECT * FROM `licencing-key` WHERE id = ?';
-    const [results] = await db.execute(query, [id]);
+const getLicencingKeyById = async (licencing_key) => {
+    const query = 'SELECT * FROM `licencing-key` WHERE licencing_key = ?';
+    const [results] = await db.execute(query, [licencing_key]);
     return results[0];
 };
 
 // Update a licencing key entry
-const updateLicencingKey = async (id, project, licencing_key, duration) => {
-    const query = 'UPDATE `licencing-key` SET project = ?, licencing_key = ?, duration = ? WHERE id = ?';
-    const [results] = await db.execute(query, [project, licencing_key, duration, id]);
+const updateLicencingKey = async (licencing_key, project, duration) => {
+    const query = 'UPDATE `licencing-key` SET project = ?, licencing_key = ?, duration = ? WHERE licencing_key = ?';
+    const [results] = await db.execute(query, [project, licencing_key, duration, licencing_key]);
     return results;
 };
 
 // Delete a licencing key entry
-const deleteLicencingKey = async (id) => {
-    const query = 'DELETE FROM `licencing-key` WHERE id = ?';
-    const [results] = await db.execute(query, [id]);
+const deleteLicencingKey = async (licencing_key) => {
+    const query = 'DELETE FROM `licencing-key` WHERE licencing_key = ?';
+    const [results] = await db.execute(query, [licencing_key]);
     return results;
 };
 
