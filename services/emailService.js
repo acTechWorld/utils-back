@@ -1,4 +1,5 @@
 require('dotenv').config();
+const validateToken = require('../utils/token')
 const nodemailer = require('nodemailer');
 const express = require('express');
 const licencingKeyRepository = require('../repositories/licencingKeyRepository');
@@ -11,7 +12,7 @@ const mappingSourceEmail= {
 
 
 // POST endpoint to handle form submissions
-router.post('/send-contact-email', (req, res) => {
+router.post('/send-contact-email', validateToken, (req, res) => {
     const { source, firstname, lastname, email, companyName, phoneNumber, message } = req.body;
 
     // Create a transporter object using Gmail SMTP transport
@@ -46,7 +47,7 @@ Message: ${message}`,
 });
 
 // POST endpoint to handle form submissions
-router.post('/send-licencing-key-email', async (req, res) => {
+router.post('/send-licencing-key-email', validateToken, async (req, res) => {
     const { source, firstname, email, duration } = req.body;
     if(source && mappingSourceEmail[source]) {
         if(duration && duration > 0) {
@@ -68,8 +69,7 @@ router.post('/send-licencing-key-email', async (req, res) => {
                     to: email, // Your receiving email address
                     subject: `Licencing Key ${source}`,
                     text: 
-                    `Hello ${firstname},
-            Here is your licencing key: ${licencingKey}`,
+                    `Hello ${firstname}, \nHere is your licencing key: ${licencingKey}`,
                 };
             
                 // Send mail with defined transport object

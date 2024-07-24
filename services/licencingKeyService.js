@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const licencingKeyRepository = require('../repositories/licencingKeyRepository');
+const validateToken  = require('../utils/token')
 
 // Example route to test the connection
-router.get('/validate-key', async (req, res) => {
+router.get('/validate-key', validateToken, async (req, res) => {
   const { id, project } = req.params;
   try {
     const result = await licencingKeyRepository.getLicencingKeyById(id);

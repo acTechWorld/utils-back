@@ -7,6 +7,7 @@ require('dotenv').config();
 
 const emailService = require('./services/emailService');
 const licencingKeyService = require('./services/licencingKeyService');
+const userService = require('./services/userService');
 
 
 const app = express();
@@ -19,6 +20,7 @@ app.use(cors());
 // Routes
 app.use('/api/email', emailService);
 app.use('/api/licencing', licencingKeyService);
+app.use('/api/user', userService);
 
 
 // Start the server
