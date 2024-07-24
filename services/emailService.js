@@ -50,7 +50,7 @@ Message: ${message}`,
 router.post('/send-licencing-key-email', validateToken, async (req, res) => {
     const { source, firstname, email, duration } = req.body;
     if(source && mappingSourceEmail[source]) {
-        if(duration && duration > 0) {
+        if(duration === null || (duration && duration > 0)) {
             try {
                 const licencingKey = crypto.randomBytes(16).toString('hex'); 
                 await licencingKeyRepository.createLicencingKey(source, licencingKey, duration)
