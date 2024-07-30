@@ -4,7 +4,7 @@ const licencingKeyRepository = require('../repositories/licencingKeyRepository')
 const validateToken  = require('../utils/token')
 
 // Example route to test the connection
-router.get('/validate-key', validateToken, async (req, res) => {
+router.get('/validate-key', async (req, res) => {
   const { licencingKey, project } = req.query;
   try {
     if (!licencingKey || !project) {
