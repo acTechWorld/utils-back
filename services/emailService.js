@@ -52,8 +52,24 @@ router.post('/send-licencing-key-email', validateToken, async (req, res) => {
     if(source && mappingSourceEmail[source]) {
         if(duration === null || (duration && duration > 0)) {
             try {
+                // Check if the user already has a valid key
+                const existingKeys = await licencingKeyRepository.findLicencingKeyByEmailProject(email, source);
+                
+
+                if (existingKeys && existingKeys.length > 0) {
+                    for (existingKey of existingKeys) {
+                        const currentTime = Date.now();
+                        const creationTime = new Date(existingKey.creation_date).getTime();
+                        const validUntil = creationTime + existingKey.duration;
+
+                        if (existingKey.duration === null || validUntil > currentTime) {
+                            return res.status(400).send('User already has a valid licensing key');
+                        }
+                    }
+                }
+
                 const licencingKey = crypto.randomBytes(16).toString('hex'); 
-                await licencingKeyRepository.createLicencingKey(source, licencingKey, duration)
+                await licencingKeyRepository.createLicencingKey(email, source, licencingKey, duration)
                 // Create a transporter object using Gmail SMTP transport
                 let transporter = nodemailer.createTransport({
                     service: 'gmail',
