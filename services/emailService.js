@@ -63,7 +63,7 @@ router.post('/send-licencing-key-email', validateToken, async (req, res) => {
                         const validUntil = creationTime + existingKey.duration;
 
                         if (existingKey.duration === null || validUntil > currentTime) {
-                            return res.status(400).send('User already has a valid licensing key');
+                            return res.status(405).send('User already has a valid licensing key');
                         }
                     }
                 }
