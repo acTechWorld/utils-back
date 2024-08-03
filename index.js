@@ -29,7 +29,7 @@ app.use(cors(corsOptions));
 
 //IP security
 const allowedIPs = [
-    '86.195.103.7', // Replace with actual allowed IP addresses
+    '86.195.103.2', // Replace with actual allowed IP addresses
 ];
 
 // Middleware to check for allowed IP addresses
