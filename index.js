@@ -15,6 +15,14 @@ const port = process.env.PORT || 3000;
 
 // Middleware
 app.use(bodyParser.json());
+
+// Configure CORS to only allow requests from your frontend domain
+const corsOptions = {
+    origin: 'http://vuelanding.com/', // Replace with your frontend's domain
+    optionsSuccessStatus: 200,
+    credentials: true // This allows cookies to be sent
+};
+
 app.use(cors());
 
 // Routes
