@@ -41,8 +41,6 @@ const corsOptions = {
     credentials: true // Allows cookies to be sent
 };
 
-app.use(cors(corsOptions));
-
 // Middleware to check for allowed IP addresses
 const ipWhitelist = (req, res, next) => {
     const origin = req.headers.origin;
@@ -64,8 +62,16 @@ const ipWhitelist = (req, res, next) => {
       res.status(403).send('Access forbidden');
     }
   };
-// Apply IP whitelist middleware
-app.use(ipWhitelist);
+
+// Apply CORS and IP whitelist middleware globally, but override for specific routes
+app.use((req, res, next) => {
+  if (req.path.startsWith('/api/licencing')) {
+      // Skip CORS and IP whitelist for /api/licencing routes
+      return next();
+  }
+  // Apply CORS and IP whitelist middleware to all other routes
+  cors(corsOptions)(req, res, () => ipWhitelist(req, res, next));
+});
   
 
 // Routes
