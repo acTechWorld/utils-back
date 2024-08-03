@@ -23,7 +23,7 @@ const whiteListedOrigins = [
 
 //IP security
 const allowedIPs = [
-    '86.195.103.2', // My IP
+    '86.195.103.7', // My IP
 ];
 
 // Configure CORS to allow specific origins
