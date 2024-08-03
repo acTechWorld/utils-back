@@ -23,7 +23,7 @@ const corsOptions = {
     credentials: true // This allows cookies to be sent
 };
 
-app.use(cors());
+app.use(cors(corsOptions));
 
 // Routes
 app.use('/api/email', emailService);
