@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 
 // Allowed origins
 const whiteListedOrigins = [
-    'http://vuelanding.com'
+    'https://vuelanding.com'
 ];
 
 //IP security
