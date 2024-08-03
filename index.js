@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 
 // Configure CORS to only allow requests from your frontend domain
 const corsOptions = {
-    origin: 'http://vuelanding.com/', // Replace with your frontend's domain
+    origin: 'http://vuelanding.com', // Replace with your frontend's domain
     optionsSuccessStatus: 200,
     credentials: true // This allows cookies to be sent
 };
