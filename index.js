@@ -65,6 +65,7 @@ const ipWhitelist = (req, res, next) => {
 
 // Apply CORS and IP whitelist middleware globally, but override for specific routes
 app.use((req, res, next) => {
+  console.log(req.path)
   if (req.path.startsWith('/api/licencing')) {
       // Skip CORS and IP whitelist for /api/licencing routes
       cors()
