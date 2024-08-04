@@ -113,4 +113,4 @@ router.post('/send-licencing-key-email', validateToken, async (req, res) => {
     }
 });
 
-module.exports = router;g
+module.exports = router;
