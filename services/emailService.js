@@ -6,8 +6,12 @@ const licencingKeyRepository = require('../repositories/licencingKeyRepository')
 const crypto = require('crypto');
 
 const router = express.Router();
-const mappingSourceEmail= {
-    vueLanding: 'vuelandingcontact@gmail.com'
+const mappingSourceInfos = {
+    vueLanding: {
+        email: 'vuelandingcontact@gmail.com',
+        githubKey: process.env.GITHUB_VUE_LANDING_PACKAGE_TOKEN,
+        installDoc: 'https://vuelanding.com/docInstall'
+    }
 }
 
 
@@ -81,11 +85,14 @@ router.post('/send-licencing-key-email', validateToken, async (req, res) => {
             
                 // Setup email data
                 let mailOptions = {
-                    from: mappingSourceEmail[source],
+                    from: mappingSourceInfos[source].email,
                     to: email, // Your receiving email address
                     subject: `Licencing Key ${source}`,
                     text: 
-                    `Hello ${firstname}, \nHere is your licencing key: ${licencingKey}`,
+                    `Hello ${firstname}, \n
+                    Here is your licencing key: ${licencingKey}\n
+                    Here is the github token to download the package: ${mappingSourceInfos[source].githubKey}\n
+                    Here is the documentation for the installation of the library: ${mappingSourceInfos[source].installDoc}`,
                 };
             
                 // Send mail with defined transport object
