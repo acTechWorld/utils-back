@@ -38,6 +38,7 @@ const corsOptions = {
       }
     },
     optionsSuccessStatus: 200,
+    preflightContinue: true,
     credentials: true // Allows cookies to be sent
 };
 
@@ -46,7 +47,7 @@ const ipWhitelist = (req, res, next) => {
     const origin = req.headers.origin;
     
     // If origin is in whitelisted origin don't check IP (for frontends access) skip IP check
-    if (whiteListedOrigins.includes(origin)) {
+    if (whiteListedOrigins.includes(origin) || req.path.startsWith('/api/licencing')) {
       return next();
     }
   
@@ -65,12 +66,6 @@ const ipWhitelist = (req, res, next) => {
 
 // Apply CORS and IP whitelist middleware globally, but override for specific routes
 app.use((req, res, next) => {
-  console.log(req.path)
-  if (req.path.startsWith('/api/licencing')) {
-      // Skip CORS and IP whitelist for /api/licencing routes
-      cors()
-      return next();
-  }
   // Apply CORS and IP whitelist middleware to all other routes
   cors(corsOptions)(req, res, () => ipWhitelist(req, res, next));
 });

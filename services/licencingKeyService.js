@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const licencingKeyRepository = require('../repositories/licencingKeyRepository');
+const cors = require('cors');
+
 
 // Example route to test the connection
-router.get('/validate-key', async (req, res) => {
+router.get('/validate-key', cors(), async (req, res) => {
   const { licencingKey, project } = req.query;
   try {
     if (!licencingKey || !project) {
