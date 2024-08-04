@@ -91,7 +91,7 @@ router.post('/send-licencing-key-email', validateToken, async (req, res) => {
                     text: 
                     `Hello ${firstname}, \n
 Here is your licencing key: ${licencingKey}
-Here is the github token to download the package: ${mappingSourceInfos[source].githubKey}\n
+Here is the github token to download the package: ${mappingSourceInfos[source].githubKey}
 Here is the documentation for the installation of the library: ${mappingSourceInfos[source].installDoc}`,
                 };
             
