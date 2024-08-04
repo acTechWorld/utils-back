@@ -31,7 +31,7 @@ router.post('/send-contact-email', validateToken, (req, res) => {
     // Setup email data
     let mailOptions = {
         from: email,
-        to: mappingSourceEmail[source], // Your receiving email address
+        to: mappingSourceInfos[source].email, // Your receiving email address
         subject: `New contact form submission from ${firstname} ${lastname}`,
         text: 
         `Name: ${firstname} ${lastname}
@@ -53,7 +53,7 @@ Message: ${message}`,
 // POST endpoint to handle form submissions
 router.post('/send-licencing-key-email', validateToken, async (req, res) => {
     const { source, firstname, email, duration } = req.body;
-    if(source && mappingSourceEmail[source]) {
+    if(source && mappingSourceInfos[source].email) {
         if(duration === null || (duration && duration > 0)) {
             try {
                 // Check if the user already has a valid key
